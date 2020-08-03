@@ -6,7 +6,6 @@ import { fam_labels } from './fam_labels'
 
 import {
   VictoryChart,
-
   VictoryLine,
   VictoryAxis,
   VictoryArea,
@@ -49,45 +48,60 @@ const full_range = [
 ];
 
 
+
+const maunder_annote = [
+  { x: new Date(1665, 1, 1), y: 90, label:"Maunder Minimum\nEpidemics/Decade: 2.6\nAvg. Epidemic Severity: 3.2\nFamines/Decade: 3.0\nAvg. Famine Severity: 3.0" }
+];
+const dalton_annote = [
+  { x: new Date(1798, 10,8.5), y: 139.4209, label:"Dalton Minimum\nEpidemics/Decade: 3.0\nAvg. Epidemic Severity: 3.3\nFamines/Decade: 2.7\nAvg. Famine Severity: 3.6" }
+];
+const modern_annote = [
+  { x: new Date(1940, 6, 25.56), y: 250.6412, label:"Modern Maximum\nEpidemics/Decade: 4.3\nAvg. Epidemic Severity: 2.2\nFamines/Decade: 6.1\nAvg. Famine Severity: 3.5" }
+];
+const full_annote = [
+  { x: new Date(1610, 1, 1), y: 0 }
+];
+
 const famine_color = '#C70039';
 const epidemic_color = '#4F0152';
 const line_chart_color = '#212121';
 const main_width = 1800;
 const main_height = 600;
-const animation_dur = 3000;
+const animation_dur = 2500;
+const area_fill = "#fcba03";
 
 const Chart = () => {
   const [fillColor, setFillColor] = useState('#900C3F')
   const [sunData, setSunData] = useState(sun_data)
   const [data, setData] = useState(full_range)
+  const [annotation, setAnnote] = useState(full_annote)
 
 
   const change_to_Dalton = (e) => {
+    setAnnote(dalton_annote)
     change_to_None()
     setData(dalton_range)
     setSunData(dalton_sun)
   }
-
   const change_to_Maunder = (e) => {
+    setAnnote(maunder_annote)
     change_to_None()
     setData(maunder_range)
     setSunData(maunder_sun)
   }
-
   const change_to_Modern = (e) => {
+    setAnnote(modern_annote)
     change_to_None()
     setData(modern_range)
     setSunData(modern_sun)
   }
-
   const change_to_full_sun = (e) => {
+    setAnnote(full_annote)
     change_to_None()
     setData(full_range)
     setSunData(sun_data)
   }
-
   const change_to_Epidemic = (e) => {
-
     setFillColor(epidemic_color)
     if (sunData === sun_data) {
       setData(epi_labels)
@@ -99,9 +113,7 @@ const Chart = () => {
       setData(modern_epi)
     }
   }
-
   const change_to_Famine = (e) => {
-
     setFillColor(famine_color)
     if (sunData === sun_data) {
       setData(fam_labels)
@@ -113,8 +125,6 @@ const Chart = () => {
       setData(modern_fam)
     }
   }
-
-
   const change_to_None = (e) => {
     if (sunData === sun_data) {
       setData(full_range)
@@ -129,11 +139,19 @@ const Chart = () => {
 
 
 
-
-
   return (
     <div>
-      <p>Grand Solar Minimums = Epidemics and Famines? </p>
+      <h1 style={{backgroundColor: area_fill, padding: "5px"}}>Grand Solar Minimums = Epidemics and Famines?</h1>
+      <p style={{textAlign:'left', fontSize: 14}}>
+          User Instructions:
+          <br />1. Select Slide 1 to display the Annual Sunspot Average for the Maunder Minimum
+          <br />2. Select Epidemic/Famine to add a scatterplot of the selected Event type
+          <br />&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;   Mousing over the circle will open a tooltip and display Event information
+          <br />&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;   Bigger circle size indicates higher severity of the Event
+          <br />&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;   'Clear Scatterplot' will remove the Event while retaining the current x-axis view
+          <br />3. Repeat steps 1-2 for Slides 2 and 3
+          <br />4. Optionally, explore the entire dataset by repeating steps 1-2 for Slide 0
+      </p>
       <button
         onClick={(e) => change_to_full_sun(e)}
         style={{
@@ -141,10 +159,11 @@ const Chart = () => {
           padding: 10,
           color: "black",
           fontSize: 12,
-          margin: "auto"
+          margin: "auto",
+          
         }}
       >
-        Full Chart
+        Slide 0<br />Full Chart
         </button>
       <button
         onClick={(e) => change_to_Maunder(e)}
@@ -156,7 +175,7 @@ const Chart = () => {
           margin: "auto"
         }}
       >
-        Maunder Minimum
+        Slide 1<br />Maunder Minimum
         </button>
       <button
         onClick={(e) => change_to_Dalton(e)}
@@ -168,7 +187,7 @@ const Chart = () => {
           margin: "auto"
         }}
       >
-        Dalton Minimum
+        Slide 2<br />Dalton Minimum
         </button>
       <button
         onClick={(e) => change_to_Modern(e)}
@@ -180,10 +199,9 @@ const Chart = () => {
           margin: "auto"
         }}
       >
-        Modern Maximum
+        Slide 3<br />Modern Maximum
         </button>
-      <div></div>
-
+      
       <button
         onClick={(e) => change_to_Epidemic(e)}
         style={{
@@ -191,7 +209,7 @@ const Chart = () => {
           padding: 10,
           color: "white",
           fontSize: 12,
-          margin: "auto"
+          marginLeft: "150px"
         }}
       >
         Epidemic
@@ -218,7 +236,7 @@ const Chart = () => {
           margin: "auto"
         }}
       >
-        Remove Scatterplot
+        Clear Scatterplot
         </button>
       <VictoryChart
         animate={{
@@ -227,21 +245,17 @@ const Chart = () => {
         width={main_width}
         height={main_height}
         scale={{ x: "time" }}
-
       >
         <VictoryArea
-        animate={{
-          duration: animation_dur
-        }}
           x="x"
           y="y"
-          style={{ data: { fill: "#fcba03" } }}
+          style={{ data: { fill: area_fill } }}
           data={sunData}
         />
-        <VictoryAxis
-          scale={{ x: "time" }}
+        <VictoryAxis scale={{ x: "time" }}
           orientation="bottom"
-          tickFormat={x => new Date(x).getFullYear()}
+          tickFormat={x => new Date(x).getFullYear()
+          }
         />
         <VictoryAxis dependentAxis={true}
           label="Annual Sunspot Average"
@@ -251,11 +265,10 @@ const Chart = () => {
             ticks: { stroke: "grey", size: 5 },
             tickLabels: { fontSize: 15, padding: 0 }
           }}
-
         />
 
         <VictoryLegend
-          x={50}
+          x={70}
           y={0}
           symbolSpacer={10}
           gutter={20}
@@ -285,6 +298,18 @@ const Chart = () => {
             <VictoryTooltip
               orientation="top"
               pointerLength={10}
+            />}
+        />
+
+        <VictoryScatter
+          data={annotation }
+          style={{ data: { fill: "white" } }}
+          labelComponent={
+            <VictoryLabel
+              backgroundStyle={{ fill: "#B4B6B2" }}
+              textAnchor="start"
+              backgroundPadding={{bottom: 18, right:20}}
+
             />}
         />
 
@@ -400,6 +425,8 @@ const Chart = () => {
             />}
         />
       </VictoryChart>
+      <p> <br /> <br /> <br /> <br /> <br />
+      </p>
     </div>
   );
 }

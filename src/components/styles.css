@@ -1,0 +1,11 @@
+.App {
+    font-family: sans-serif;
+    text-align: center;
+  }
+  
+.instructions {
+  color: DodgerBlue;
+  padding: 40px;
+  font-family: Arial;
+  text-align: left;
+}
