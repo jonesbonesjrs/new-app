@@ -31,6 +31,23 @@ const modern_sun = sun_data.filter(item => (item.x >= new Date(1914, 1, 1)) & (i
 const modern_fam = fam_labels.filter(item => (item.x >= new Date(1914, 1, 1)) & (item.x <= new Date(2008, 1, 1)));
 const modern_epi = epi_labels.filter(item => (item.x >= new Date(1914, 1, 1)) & (item.x <= new Date(2008, 1, 1)));
 
+const maunder_range = [
+  { x: new Date(1645, 1, 1), y: 0 },
+  { x: new Date(1715, 1, 1), y: 96.7 }
+];
+const dalton_range = [
+  { x: new Date(1790, 1, 1), y: 0 },
+  { x: new Date(1820, 1, 1), y: 149.8  }
+];
+const modern_range = [
+  { x: new Date(1914, 1, 1), y: 0 },
+  { x: new Date(2008, 1, 1), y: 269.3 }
+];
+const full_range = [
+  { x: new Date(1610, 1, 1), y: 0 },
+  { x: new Date(2020, 1, 1), y: 269.3 }
+];
+
 
 const famine_color = '#C70039';
 const epidemic_color = '#4F0152';
@@ -43,34 +60,30 @@ const Chart = () => {
   const [fillColor, setFillColor] = useState('#900C3F')
   const [sunData, setSunData] = useState(sun_data)
   const [data, setData] = useState()
-  const [textColor, setTextColor] = useState('black')
+
 
   const change_to_Dalton = (e) => {
-    e.preventDefault()
     change_to_None()
     setSunData(dalton_sun)
   }
 
   const change_to_Maunder = (e) => {
-    e.preventDefault()
     change_to_None()
     setSunData(maunder_sun)
   }
 
   const change_to_Modern = (e) => {
-    e.preventDefault()
     change_to_None()
     setSunData(modern_sun)
   }
 
   const change_to_full_sun = (e) => {
-    e.preventDefault()
     change_to_None()
     setSunData(sun_data)
   }
 
   const change_to_Epidemic = (e) => {
-    e.preventDefault()
+
     setFillColor(epidemic_color)
     if (sunData === sun_data) {
       setData(epi_labels)
@@ -84,7 +97,7 @@ const Chart = () => {
   }
 
   const change_to_Famine = (e) => {
-    e.preventDefault()
+
     setFillColor(famine_color)
     if (sunData === sun_data) {
       setData(fam_labels)
@@ -98,15 +111,14 @@ const Chart = () => {
   }
 
   const change_to_None = (e) => {
-    e.preventDefault()
     if (sunData === sun_data) {
-      setData(null)
+      setData(full_range)
     } else if (sunData === dalton_sun) {
-      setData(null)
+      setData(dalton_range)
     } else if (sunData === maunder_sun) {
-      setData(null)
+      setData(maunder_range)
     } else if (sunData === modern_sun) {
-      setData(null)
+      setData(modern_range)
     }
   }
 
@@ -195,7 +207,7 @@ const Chart = () => {
         style={{
           backgroundColor: '#B4B6B2',
           padding: 10,
-          color: textColor,
+          color: "black",
           fontSize: 12,
           margin: "auto"
         }}
@@ -258,7 +270,6 @@ const Chart = () => {
           }}
           width={1200}
           data={sunData} x="x" y="y"
-          animate={{ duration: animation_dur }}
         />
         <VictoryScatter
           size={({ datum }) => datum.s * 2.5 + 1}
