@@ -59,7 +59,7 @@ const modern_annote = [
   { x: new Date(1940, 6, 25.56), y: 250.6412, label:"Modern Maximum\nEpidemics/Decade: 4.3\nAvg. Epidemic Severity: 2.2\nFamines/Decade: 6.1\nAvg. Famine Severity: 3.5" }
 ];
 const full_annote = [
-  { x: new Date(1610, 1, 1), y: 0 }
+  { x: new Date(1727, 1, 22), y: 250.6412, label: "1610-2020\nEpidemics/Decade: 3.4\nAvg. Epidemic Severity: 2.7\nFamines/Decade: 3.7\nAvg. Famine Severity: 3.3" }
 ];
 
 const famine_color = '#C70039';
@@ -75,28 +75,33 @@ const Chart = () => {
   const [sunData, setSunData] = useState(sun_data)
   const [data, setData] = useState(full_range)
   const [annotation, setAnnote] = useState(full_annote)
+  const [annote_fill, setAnnoteFill] = useState('#B4B6B2')
 
 
   const change_to_Dalton = (e) => {
     setAnnote(dalton_annote)
+    setAnnoteFill('pink')
     change_to_None()
     setData(dalton_range)
     setSunData(dalton_sun)
   }
   const change_to_Maunder = (e) => {
     setAnnote(maunder_annote)
+    setAnnoteFill('pink')
     change_to_None()
     setData(maunder_range)
     setSunData(maunder_sun)
   }
   const change_to_Modern = (e) => {
     setAnnote(modern_annote)
+    setAnnoteFill('#9FCE78')
     change_to_None()
     setData(modern_range)
     setSunData(modern_sun)
   }
   const change_to_full_sun = (e) => {
     setAnnote(full_annote)
+    setAnnoteFill('#B4B6B2')
     change_to_None()
     setData(full_range)
     setSunData(sun_data)
@@ -306,7 +311,7 @@ const Chart = () => {
           style={{ data: { fill: "white" } }}
           labelComponent={
             <VictoryLabel
-              backgroundStyle={{ fill: "#B4B6B2" }}
+              backgroundStyle={{ fill: annote_fill }}
               textAnchor="start"
               backgroundPadding={{bottom: 18, right:20}}
 
