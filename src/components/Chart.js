@@ -54,7 +54,7 @@ const epidemic_color = '#4F0152';
 const line_chart_color = '#212121';
 const main_width = 1800;
 const main_height = 600;
-const animation_dur = 2000;
+const animation_dur = 3000;
 
 const Chart = () => {
   const [fillColor, setFillColor] = useState('#900C3F')
