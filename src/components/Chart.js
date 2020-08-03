@@ -66,7 +66,7 @@ const famine_color = '#C70039';
 const epidemic_color = '#4F0152';
 const line_chart_color = '#212121';
 const main_width = 1800;
-const main_height = 600;
+const main_height = 550;
 const animation_dur = 2500;
 const area_fill = "#fcba03";
 
@@ -146,9 +146,11 @@ const Chart = () => {
 
   return (
     <div>
-      <h1 style={{backgroundColor: area_fill, padding: "5px"}}>Grand Solar Minimums = Epidemics and Famines?</h1>
+      <h1 style={{backgroundColor: area_fill, padding: "5px"}}>Grand Solar Minimum = Epidemic and Famine?</h1>
       <p style={{textAlign:'left', fontSize: 14}}>
-          User Instructions:
+          Recently there have been murmurings in the media regarding the upcoming (or rather) the Solar Minimum that we are currently in. 
+          <br /> Along with the murmurings a theory has emerged that Solar Minimums bring Epidemic and Famine.. this visualization takes a data-driven dive into that theory.
+          <br /><br />User Instructions:
           <br />1. Select Slide 1 to display the Annual Sunspot Average for the Maunder Minimum
           <br />2. Select Epidemic/Famine to add a scatterplot of the selected Event type
           <br />&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;   Mousing over the circle will open a tooltip and display Event information
@@ -323,7 +325,7 @@ const Chart = () => {
       <VictoryChart
         padding={{ top: 0, left: 50, right: 50, bottom: 30 }}
         width={1800}
-        height={110}
+        height={90}
         scale={{ x: "time" }}
       >
         <VictoryLine
@@ -430,7 +432,18 @@ const Chart = () => {
             />}
         />
       </VictoryChart>
-      <p> <br /> <br /> <br /> <br /> <br />
+      <p style={{textAlign:'left', fontSize: 14}}>
+      Results:
+      <br />
+      &nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp; Epidemic Frequency, from Low to High: Maunder, Dalton, 1610-2020, Modern <br />
+      &nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp; Epidemic Severity, from Low to High: Modern, 1610-2020, Maunder, Dalton <br />
+      &nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp; Famine Frequency, from Low to High: Dalton, Maunder, 1610-2020, Modern <br />
+      &nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp; Famine Severity, from Low to High: Maunder, 1610-2020, Modern, Dalton <br />
+      Conclusions:<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp; Epidemics and Famines occured most frequently during the Modern Maximum but they were the most severe during the Dalton Minimum. High Frequency of Modern Maximum may be due to advances in informational technology<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp; Epidemics are least severe in the Modern Maximum most likely is due to the advantages of modern medicine<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp; Only Dalton Famines are more severe than Modern Famines and Modern Famines occur more than twice as often<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp; No evidence of increase in Famine/Epidemic frequency during Grand Solar Minimum, the opposite may be true in fact.
       </p>
     </div>
   );
