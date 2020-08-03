@@ -54,31 +54,35 @@ const epidemic_color = '#4F0152';
 const line_chart_color = '#212121';
 const main_width = 1800;
 const main_height = 600;
-const animation_dur = 1000;
+const animation_dur = 2000;
 
 const Chart = () => {
   const [fillColor, setFillColor] = useState('#900C3F')
   const [sunData, setSunData] = useState(sun_data)
-  const [data, setData] = useState()
+  const [data, setData] = useState(full_range)
 
 
   const change_to_Dalton = (e) => {
     change_to_None()
+    setData(dalton_range)
     setSunData(dalton_sun)
   }
 
   const change_to_Maunder = (e) => {
     change_to_None()
+    setData(maunder_range)
     setSunData(maunder_sun)
   }
 
   const change_to_Modern = (e) => {
     change_to_None()
+    setData(modern_range)
     setSunData(modern_sun)
   }
 
   const change_to_full_sun = (e) => {
     change_to_None()
+    setData(full_range)
     setSunData(sun_data)
   }
 
@@ -110,6 +114,7 @@ const Chart = () => {
     }
   }
 
+
   const change_to_None = (e) => {
     if (sunData === sun_data) {
       setData(full_range)
@@ -121,6 +126,7 @@ const Chart = () => {
       setData(modern_range)
     }
   }
+
 
 
 
@@ -215,14 +221,18 @@ const Chart = () => {
         Remove Scatterplot
         </button>
       <VictoryChart
-        animate={{ duration: animation_dur }}
+        animate={{
+          duration: animation_dur
+        }}
         width={main_width}
         height={main_height}
         scale={{ x: "time" }}
 
       >
         <VictoryArea
-          animate={{ duration: animation_dur }}
+        animate={{
+          duration: animation_dur
+        }}
           x="x"
           y="y"
           style={{ data: { fill: "#fcba03" } }}
@@ -232,9 +242,6 @@ const Chart = () => {
           scale={{ x: "time" }}
           orientation="bottom"
           tickFormat={x => new Date(x).getFullYear()}
-          animate={{
-            duration: animation_dur
-          }}
         />
         <VictoryAxis dependentAxis={true}
           label="Annual Sunspot Average"
@@ -244,14 +251,12 @@ const Chart = () => {
             ticks: { stroke: "grey", size: 5 },
             tickLabels: { fontSize: 15, padding: 0 }
           }}
-          animate={{
-            duration: animation_dur
-          }}
+
         />
 
         <VictoryLegend
           x={50}
-          y={-5}
+          y={0}
           symbolSpacer={10}
           gutter={20}
           borderComponent={
@@ -302,7 +307,7 @@ const Chart = () => {
           style={{ data: { fill: fillColor } }}
           symbol="circle"
           data={data} x="x" y="y"
-          labels={() => ''} // the label component doesn't show if I remove this
+          labels={() => ''} 
           labelComponent={
             <VictoryTooltip
               orientation="top"
